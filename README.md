@@ -12,7 +12,7 @@ The `app` container provides everything:
 - Enrollment API
 - File-based demo persistence through the `app-data` Docker volume
 
-The application uses only the Node.js standard library and has no package dependencies. Every commit pushed to a branch triggers a GitHub Actions Docker build; pull-request updates also trigger a build. The image is checked in CI but is not published to a container registry.
+The application uses only the Node.js standard library and has no package dependencies. Every commit pushed to a branch triggers a GitHub Actions Docker build and publishes the image to Docker Hub as `iamkamakamzy/automation`, tagged with the commit SHA and `latest`. Pull-request updates build the image without publishing it.
 
 ## Tools used
 
@@ -50,4 +50,4 @@ Use `docker volume rm s13-training-camps-data` only when you intentionally want 
 
 ## CI/CD
 
-`.github/workflows/docker-build.yml` builds the image on GitHub's hosted runner for every push and pull-request update. It does not publish the image; registry publishing can be added separately if needed.
+`.github/workflows/docker-build.yml` builds the image on GitHub's hosted runner for every push and pull-request update, and publishes it to Docker Hub for branch pushes. Add a Docker Hub access token that can push to `iamkamakamzy/automation` as the repository Actions secret `DOCKERHUB_TOKEN`. The published image uses both the full commit SHA and `latest` tags.
