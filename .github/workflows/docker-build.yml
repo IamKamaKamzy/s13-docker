@@ -22,3 +22,18 @@ jobs:
         with:
           context: .
           push: false
+          load: true
+          tags: |
+            s13-training-camps:${{ github.sha }}
+            s13-training-camps:latest
+
+      - name: Show built image
+        run: |
+          docker image ls --no-trunc --format 'table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.Size}}' s13-training-camps
+          {
+            echo '## Built Docker image'
+            echo
+            echo '| Tag | Image ID | Size |'
+            echo '|---|---|---|'
+            docker image inspect "s13-training-camps:${GITHUB_SHA}" --format '| `{{.RepoTags}}` | `{{.Id}}` | {{.Size}} bytes |'
+          } >> "$GITHUB_STEP_SUMMARY"
