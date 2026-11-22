@@ -12,7 +12,7 @@ The `app` container provides everything:
 - Enrollment API
 - File-based demo persistence through the `app-data` Docker volume
 
-The application uses only the Node.js standard library and has no package dependencies. GitHub Actions builds the Docker image on every branch push and pull-request update. The build is checked in CI but is not published to a container registry.
+The application uses only the Node.js standard library and has no package dependencies. Every commit pushed to a branch triggers a GitHub Actions Docker build; pull-request updates also trigger a build. The image is checked in CI but is not published to a container registry.
 
 ## Tools used
 
